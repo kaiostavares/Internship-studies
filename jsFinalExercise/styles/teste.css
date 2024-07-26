@@ -1,0 +1,19 @@
+.question{
+   display: flex;
+   flex-direction: column;
+}
+
+.question div{
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+}
+
+.alternativeLabel{
+   display: flex;
+   gap: 4px;
+}
+
+.alternativeLabel input{
+   order: -1;
+}

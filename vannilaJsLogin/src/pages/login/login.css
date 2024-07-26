@@ -1,0 +1,155 @@
+section{
+   height: 100%;
+   width: 100%;
+   display: flex;
+   overflow: hidden;
+}
+
+#main-content {
+   width: 50%;
+   display: flex;
+   flex-direction: column;
+   padding: 70px;
+}
+
+#img-content{
+   width: 50%;
+}
+
+#img-content img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+#info-content {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 40px;
+}
+
+#info-brand {
+   font-size: 1.5rem;
+   font-family: 'Times New Roman', Times, serif;
+   font-weight: bold;
+   color: grey;
+   margin-bottom: 50px;
+}
+
+#info-title {
+   font-size: 2.5rem;
+   font-family: cursive;
+   font-weight: bold;
+}
+
+#info-title-enphase {
+   font-size: 4rem;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   color: #5d3ee7;
+   display: block;
+}
+
+#auth-form {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+}
+
+.auth-form-input {
+   display: flex;
+   flex-direction: column;
+   padding: 10px;
+   border: 1px solid #5d3ee7;
+}
+
+.auth-form-input label {
+   color: #5d3ee7;
+}
+
+.auth-form-input input {
+   color: black;
+   border: none;
+   outline: none;
+}
+
+#auth-form-remember {
+   label {
+      color: gray;
+      font-size: 0.9rem;
+   }
+
+   margin-bottom: 20px;
+}
+
+#auth-form-buttons{
+   display: flex;
+   gap: 10px;
+
+   #login{
+      background-color: #ec4dc4;
+   }
+
+   #login:hover{
+      background-color: #d13aa7;
+   }
+}
+
+#auth-form-buttons button{
+   padding: 6px;
+   border: gray;
+   background-color: #5d3ee7;
+   color: white;
+   cursor: pointer;
+   width: 120px;
+}
+
+
+#auth-form-buttons button:hover{
+   background-color: #4a2cc7;
+}
+
+.error{
+   color: red;
+   font-size: 0.8rem;
+
+}
+
+#auth-error-tag{
+   background-color: #f44336;
+   color: #ffffff;
+   padding: 15px;
+   border-radius: 5px;
+   position: fixed;
+   top: 10px;
+   right: 10px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   z-index: 1000; 
+   opacity: 1; 
+   transition: opacity 0.5s ease;
+}
+
+@media (max-width: 768px) {
+   #main-content {
+      width: 100%;
+   }
+
+   #info-title{
+      text-align: center;
+   }
+
+   #auth-form {
+      width: 100%;
+   }
+
+   #img-content {
+      display: none;
+   }
+}
+
+
+@media  screen and (max-width: 500px) {
+   #main-content {
+      padding: 20px;
+   }
+   
+}

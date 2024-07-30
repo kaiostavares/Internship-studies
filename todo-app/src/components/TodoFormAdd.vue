@@ -15,26 +15,19 @@
    </form>
 </template>
 
-<script>
+<script setup>
 import { useTodosStore } from '@/store';
+import { ref } from 'vue';
 
-export default {
-   data() {
-      return {
-         title: '',
-      }
-   },
-   methods:{
-      addTodo(){
-         if(!this.title) return
-         const todosStore = useTodosStore();
-         todosStore.addTodo({
-            title: this.title,
-            completed: false
-         }).finally(() => {
-            this.title = ''
-         })
-      }
-   }
+const title = ref('');
+const addTodo = () => {
+   if(!title.value) return
+   const todosStore = useTodosStore();
+   todosStore.addTodo({
+      title: title.value,
+      completed: false
+   }).finally(() => {
+      title.value = ''
+   })
 }
 </script>

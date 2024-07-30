@@ -67,52 +67,44 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, defineProps} from 'vue';
 import { useTodosStore } from '@/store';
 
-export default {
-  props:{
-    todo:{
-      type: Object,
-      default: () => ({})
-    }
-  },
+const props = defineProps({
+  todo: {
+    type: Object,
+    default: () => ({})
+  }
+})
 
-  data(){
-    return {
-      title: this.todo.title,
-      isCompleted: this.todo.completed,
-    }
-  },
+const title = ref(props.todo.title)
+const isCompleted = ref(props.todo.completed)
 
-  computed:{
-    todoStore(){
-      return useTodosStore()
-    }
-  },
+const todoStore = useTodosStore()
 
-  methods:{
-    updateTodo(){
-      const payload = {
-        id: this.todo.id,
-        data:{
-          title: this.title,
-          completed: this.isCompleted
-        }
-      }
-      this.todoStore.updateTodo(payload)
-    },
-    handleChangeTitle(){
-      if(!this.title) return
-      this.updateTodo()
-    },
-    handleCheckTodo(){
-      this.isCompleted = !this.isCompleted
-      this.updateTodo();
-    },
-    handleDeleteTodo(){
-      this.todoStore.deleteTodo(this.todo.id)
+const updateTodo = () => {
+  const payload = {
+    id: props.todo.id,
+    data:{
+      title: title.value,
+      completed: isCompleted.value
     }
   }
+  todoStore.updateTodo(payload)
+}
+
+const handleChangeTitle = () => {
+  if(!title.value) return
+  updateTodo()
+}
+
+const handleCheckTodo = () => {
+  isCompleted.value = !isCompleted.value
+  updateTodo()
+}
+
+const handleDeleteTodo = () => {
+  todoStore.deleteTodo(props.todo.id)
 }
 </script>

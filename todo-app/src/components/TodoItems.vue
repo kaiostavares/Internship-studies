@@ -9,15 +9,10 @@
 </template>
 
 
-<script>
+<script setup>
 import TodoItem from '@/components/TodoItem.vue';
 import { useTodosStore } from '@/store';
-export default {
-  components: { TodoItem },
-  computed:{
-    todos(){
-      return useTodosStore().todos;
-    }
-  }
-}
+import { computed } from 'vue';
+
+const todos = computed(() => useTodosStore().todos);
 </script>

@@ -11,30 +11,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import {ref, computed} from 'vue';
 import TodoSpinner from '@/components/TodoSpinner.vue';
 import TodoFormAdd from '@/components/TodoFormAdd.vue';
 import TodoItems from '@/components/TodoItems.vue';
 import TodoEmpty from '@/components/TodoEmpty.vue';
 import { useTodosStore } from '@/store';
-export default {
-  name: "App",
-  components: { TodoSpinner, TodoFormAdd, TodoItems, TodoEmpty },
-  data(){
-    return {
-      loading:false
-    }
-  },
-  created() {
-    this.loading = true;
-    this.todoStore.getTodos().finally(() => {
-      this.loading = false;
-    });
-  },
-  computed:{
-    todoStore(){
-      return useTodosStore()
-    }
-  }
-};
+
+const loading = ref(true);
+const todoStore = computed(()=> useTodosStore());
+todoStore.value.getTodos().finally(() => {
+  loading.value = false;
+});
 </script>

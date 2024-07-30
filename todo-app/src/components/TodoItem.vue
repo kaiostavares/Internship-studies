@@ -33,7 +33,10 @@
           v-model="title"
           type="text"
           placeholder="Digite a sua tarefa"
-          class="bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3"
+          :class="{
+            'bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3':true,
+            'line-through': isCompleted,
+          }"
           @keyup.enter="handleChangeTitle"
         />
       </div>
@@ -46,6 +49,7 @@
             fill="none"
             stroke="currentColor"
             xmlns="http://www.w3.org/2000/svg"
+            @click="handleDeleteTodo"
           >
             <path
               d="M19 7L18.1327 19.1425C18.0579 
@@ -81,6 +85,12 @@ export default {
     }
   },
 
+  computed:{
+    todoStore(){
+      return useTodosStore()
+    }
+  },
+
   methods:{
     updateTodo(){
       const payload = {
@@ -90,7 +100,7 @@ export default {
           completed: this.isCompleted
         }
       }
-      useTodosStore().updateTodo(payload)
+      this.todoStore.updateTodo(payload)
     },
     handleChangeTitle(){
       if(!this.title) return
@@ -99,6 +109,9 @@ export default {
     handleCheckTodo(){
       this.isCompleted = !this.isCompleted
       this.updateTodo();
+    },
+    handleDeleteTodo(){
+      this.todoStore.deleteTodo(this.todo.id)
     }
   }
 }

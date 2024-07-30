@@ -4,8 +4,8 @@
       <TodoSpinner v-if="loading"/>
       <template v-else>
         <TodoFormAdd />
-        <TodoItems/>
-        <TodoEmpty/>
+        <TodoItems v-if="todoStore.todos.length"/>
+        <TodoEmpty v-else/>
       </template>
     </div>
   </div>
@@ -27,9 +27,14 @@ export default {
   },
   created() {
     this.loading = true;
-    useTodosStore().getTodos().finally(() => {
+    this.todoStore.getTodos().finally(() => {
       this.loading = false;
     });
+  },
+  computed:{
+    todoStore(){
+      return useTodosStore()
+    }
   }
 };
 </script>

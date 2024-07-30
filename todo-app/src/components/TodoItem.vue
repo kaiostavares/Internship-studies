@@ -4,7 +4,13 @@
       class="flex items-center px-4 py-3 border-b border-gray-400 last:border-b-0"
     >
       <div class="flex items-center justify-center mr-2">
-        <button class="text-gray-400">
+        <button 
+          :class="{
+            'text-green-700': isCompleted,
+            'text-gray-400' : !isCompleted
+          }"
+          @click="handleCheckTodo"
+        >
           <svg
             class="w-5 h-5"
             fill="none"
@@ -24,10 +30,11 @@
 
       <div class="w-full">
         <input
+          v-model="title"
           type="text"
           placeholder="Digite a sua tarefa"
-          :value="todo.title"
           class="bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3"
+          @keyup.enter="handleChangeTitle"
         />
       </div>
 
@@ -57,11 +64,41 @@
 </template>
 
 <script>
+import { useTodosStore } from '@/store';
+
 export default {
   props:{
     todo:{
       type: Object,
       default: () => ({})
+    }
+  },
+
+  data(){
+    return {
+      title: this.todo.title,
+      isCompleted: this.todo.completed,
+    }
+  },
+
+  methods:{
+    updateTodo(){
+      const payload = {
+        id: this.todo.id,
+        data:{
+          title: this.title,
+          completed: this.isCompleted
+        }
+      }
+      useTodosStore().updateTodo(payload)
+    },
+    handleChangeTitle(){
+      if(!this.title) return
+      this.updateTodo()
+    },
+    handleCheckTodo(){
+      this.isCompleted = !this.isCompleted
+      this.updateTodo();
     }
   }
 }

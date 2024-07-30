@@ -1,6 +1,7 @@
 <template>
-   <form class="flex items-center px-4 bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3">
+   <form @submit.prevent="addTodo" class="flex items-center px-4 bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3">
       <input
+         v-model="title"
          placeholder="Adicione um novo item ..."
          type="text"
          class="bg-gray-900 placeholder-gray-500 text-gray-500 font-light focus:outline-none block w-full appearance-none leading-normal py-3 pr-3"
@@ -13,3 +14,27 @@
       </button>
    </form>
 </template>
+
+<script>
+import { useTodosStore } from '@/store';
+
+export default {
+   data() {
+      return {
+         title: '',
+      }
+   },
+   methods:{
+      addTodo(){
+         if(!this.title) return
+         const todosStore = useTodosStore();
+         todosStore.addTodo({
+            title: this.title,
+            completed: false
+         }).finally(() => {
+            this.title = ''
+         })
+      }
+   }
+}
+</script>
